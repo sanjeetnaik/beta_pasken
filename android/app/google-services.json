@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "870220317997",
+    "project_id": "studentship-18c9a",
+    "storage_bucket": "studentship-18c9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870220317997:android:be9536370321677e9affa4",
+        "android_client_info": {
+          "package_name": "com.sanjeet.studentship"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870220317997-rn68nbcr5eve736lepocmt2pcmo2js5b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sanjeet.studentship",
+            "certificate_hash": "7744d9e4e03e33a192a5f7218e6c2e13d2ef230e"
+          }
+        },
+        {
+          "client_id": "870220317997-ln8b9ceocqvcea2pon288odmm7gvnqlt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAywIQSUoxIuZ_ytxqBN7dFmHwh_gXBd2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870220317997-ln8b9ceocqvcea2pon288odmm7gvnqlt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
