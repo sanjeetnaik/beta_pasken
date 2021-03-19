@@ -27,13 +27,19 @@ class Question extends StatelessWidget {
             ),
           ),
         ),
-        body: QuestionScreen(),
+        body: QuestionScreen(
+          qnum: qnum,
+        ),
       ),
     );
   }
 }
 
 class QuestionScreen extends StatefulWidget {
+  QuestionScreen({this.qnum});
+
+  var qnum;
+
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
 }
@@ -41,7 +47,7 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   var question;
   final _formKey = GlobalKey<FormState>();
-  var ls = [];
+  var ls = {};
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +112,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
                               // If the form is valid, display a Snackbar.
                               Scaffold.of(context).showSnackBar(
                                   SnackBar(content: Text('Processing Data')));
-
-                              ls.add(question);
+                              String tempstr1 =
+                                  "\"" + widget.qnum.toString() + "\"";
+                              String tempstr2 =
+                                  "\"" + question.toString() + "\"";
+                              ls[tempstr1] = tempstr2;
                               Navigator.pop(context, ls);
                             }
                           },

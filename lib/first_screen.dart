@@ -12,79 +12,81 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  File file;
+
   @override
   void initState() {
     super.initState();
     print("start");
     var userr = FirebaseAuth.instance.currentUser;
-    openFile('${userr.uid}');
+    // openFile('${userr.uid}');
     print("created");
+    _openfile();
+  }
+
+  _openfile() async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    bool check = File('${directory.path}/my_file.txt').existsSync();
+
+    if (check == true) {
+      setState(() {
+        file = File('${directory.path}/my_file.txt');
+      });
+      print("File exists");
+    } else {
+      setState(() {
+        file = new File('${directory.path}/my_file.txt');
+      });
+      print("File don't exists");
+    }
+  }
+
+  Future _clearfile() async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    file = File('${directory.path}/my_file.txt');
+    file.delete();
+    file = new File('${directory.path}/my_file.txt');
+  }
+
+  _write(String text) async {
+    var value = await _read();
+    if (value != null) {
+      text = value + " " + text;
+    }
+    await file.writeAsString(text);
+  }
+
+  Future<String> _read() async {
+    String text;
+    try {
+      text = await file.readAsString();
+      text = text.toString();
+    } catch (e) {
+      print(e);
+      print("Couldn't read file");
+    }
+    return text;
   }
 
   void dispose() {
     super.dispose();
   }
 
-  var lsss = [];
-  int _counter = 0;
-  File file;
-  var filePath;
+  Future _updatelsss() async {
+    var output;
+    String previousinput = await _read();
+    if (previousinput != null) {
+      print(previousinput);
+
+      output = json.decode(previousinput);
+    }
+    print(output);
+    return output;
+  }
+
+  var lsss = {};
   var storageData = {};
   var user = FirebaseAuth.instance.currentUser;
-
-  Future openFile(String username) async {
-    try {
-      print("yolo");
-      String dir = (await getApplicationDocumentsDirectory()).path;
-      print(dir);
-      this.file = new File('$dir/helloworld.txt');
-      print(this.file);
-      bool check = this.file.existsSync();
-      print(check);
-      if (check != false) {
-        print('file exists');
-        this.filePath = file.uri;
-        print(this.filePath);
-      } else {
-        print('error');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void _incrementCounter(var dataa) async {
-    print("hiya");
-    setState(() {
-      _counter++;
-      this.storageData['"$_counter"'] = {
-        '"question"': '"question${dataa[0][0].toString()}"'
-      };
-      print(this.storageData);
-      // appendFile(this.storageData);
-      writeFile(this.storageData);
-      var data = readFile();
-      print(data);
-    });
-  }
-
-  void writeFile(var data) async {
-    file.writeAsStringSync(data.toString());
-    await readFile();
-  }
-
-  Future<dynamic> readFile() async {
-    try {
-      String data = await this.file.readAsString();
-      print("file data : " + data.toString());
-      var returnData = jsonDecode(data);
-      print("hello " + returnData.toString());
-      print(returnData["1"]);
-      return returnData;
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,17 +132,47 @@ class _FirstScreenState extends State<FirstScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RaisedButton(
-                  onPressed: () {
-                    print(user.displayName);
-                    setState(() async {
-                      lsss = await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Input()),
-                      );
+                  onPressed: () async {
+                    var output;
+                    String previousinput = await _read();
+                    if (previousinput != null) {
+                      output = json.decode(previousinput);
+                    }
+
+                    print("previous input : ");
+                    print(output.runtimeType);
+
+                    var storage = output;
+                    if (output != null) {
+                      for (var k in output.keys) {
+                        print(k.runtimeType);
+                      }
+                    }
+
+                    var temp = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Input(
+                          storage: storage,
+                        ),
+                      ),
+                    );
+
+                    setState(() {
+                      lsss = temp;
                     });
-                    print(lsss);
-                    _incrementCounter(lsss);
-                    print("done");
+
+                    print(lsss.toString());
+
+                    if (lsss != null && lsss != {}) {
+                      var a = await _clearfile();
+                      await _write(lsss.toString());
+                      var value = await _read();
+                      if (value != null) {
+                        print("tis the value : " + value);
+                      }
+                      _updatelsss();
+                    }
                   },
                   child: Text('Play Game!!'),
                 ),
@@ -148,14 +180,21 @@ class _FirstScreenState extends State<FirstScreen> {
                   height: 15,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    var value = await _read();
+                    if (value != null) {
+                      print("tis the value : " + value);
+                    }
+                  },
                   child: Text('Read Data'),
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _clearfile();
+                  },
                   child: Text('LeaderBoard'),
                 )
               ],
@@ -164,6 +203,5 @@ class _FirstScreenState extends State<FirstScreen> {
         ),
       ),
     );
-    ;
   }
 }
