@@ -13,7 +13,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   File file;
-
+  Map lsss = {};
   @override
   void initState() {
     super.initState();
@@ -22,6 +22,13 @@ class _FirstScreenState extends State<FirstScreen> {
     // openFile('${userr.uid}');
     print("created");
     _openfile();
+    lsss = {
+      "\"1\"": null,
+      "\"2\"": null,
+      "\"3\"": null,
+      "\"4\"": null,
+      "\"5\"": null
+    };
   }
 
   _openfile() async {
@@ -84,7 +91,11 @@ class _FirstScreenState extends State<FirstScreen> {
     return output;
   }
 
-  var lsss = {};
+  String _conversion(String k) {
+    k = "\"" + k + "\"";
+    return k;
+  }
+
   var storageData = {};
   var user = FirebaseAuth.instance.currentUser;
 
@@ -142,10 +153,18 @@ class _FirstScreenState extends State<FirstScreen> {
                     print("previous input : ");
                     print(output.runtimeType);
 
-                    var storage = output;
                     if (output != null) {
-                      for (var k in output.keys) {
-                        print(k.runtimeType);
+                      int counter = 1;
+                      for (var k in output.values) {
+                        if (k != null) {
+                          k = _conversion(k);
+                          String tempcounter = _conversion(counter.toString());
+                          setState(() {
+                            print(tempcounter);
+                            lsss[tempcounter] = k;
+                          });
+                        }
+                        counter++;
                       }
                     }
 
@@ -153,7 +172,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Input(
-                          storage: storage,
+                          storage: lsss,
                         ),
                       ),
                     );
@@ -162,8 +181,6 @@ class _FirstScreenState extends State<FirstScreen> {
                       lsss = temp;
                     });
 
-                    print(lsss.toString());
-
                     if (lsss != null && lsss != {}) {
                       var a = await _clearfile();
                       await _write(lsss.toString());
@@ -171,7 +188,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       if (value != null) {
                         print("tis the value : " + value);
                       }
-                      _updatelsss();
+                      // _updatelsss();
                     }
                   },
                   child: Text('Play Game!!'),
