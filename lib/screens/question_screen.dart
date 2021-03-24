@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Question extends StatelessWidget {
   var qnum;
+  String prevdata;
 
-  Question({this.qnum});
+  Question({this.qnum, this.prevdata});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,7 @@ class Question extends StatelessWidget {
         ),
         body: QuestionScreen(
           qnum: qnum,
+          prevdata: prevdata,
         ),
       ),
     );
@@ -36,9 +37,10 @@ class Question extends StatelessWidget {
 }
 
 class QuestionScreen extends StatefulWidget {
-  QuestionScreen({this.qnum});
+  QuestionScreen({this.qnum, this.prevdata});
 
   var qnum;
+  var prevdata;
 
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
@@ -46,8 +48,19 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
   var question;
+  String prevquestion;
   final _formKey = GlobalKey<FormState>();
   var ls = {};
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    prevquestion = widget.prevdata;
+    if (prevquestion != null) {
+      prevquestion = prevquestion.substring(1, prevquestion.length - 1);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +95,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(35, 0, 35, 20),
                         child: TextFormField(
+                          initialValue:
+                              prevquestion != null ? prevquestion : "",
                           validator: (value) {
                             print(value);
                             if (value.isEmpty) {

@@ -12,13 +12,26 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
-  var tl = AssetImage('assets/add.png');
-  var tr = AssetImage('assets/add.png');
-  var c = AssetImage('assets/add.png');
-  var bl = AssetImage('assets/add.png');
-  var br = AssetImage('assets/add.png');
+  var tl = Icon(
+    Icons.add,
+    size: 64,
+  );
+  var tr = Icon(
+    Icons.add,
+    size: 64,
+  );
+  var c = Icon(
+    Icons.add,
+    size: 64,
+  );
+  var bl = Icon(
+    Icons.add,
+    size: 64,
+  );
+  var br = Icon(
+    Icons.add,
+    size: 64,
+  );
   var lso1 = {};
   var lso2 = {};
   var lso3 = {};
@@ -28,22 +41,89 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
   var god = {};
   var keyss = [];
 
+  void _tickme() {
+    if (widget.storage != null) {
+      if (widget.storage["\"1\""] != null && widget.storage["\"1\""] != "") {
+        setState(() {
+          tl = Icon(
+            Icons.check,
+            size: 64,
+          );
+        });
+      } else {
+        setState(() {
+          tl = Icon(
+            Icons.add,
+            size: 64,
+          );
+        });
+      }
+      if (widget.storage["\"2\""] != null && widget.storage["\"2\""] != "") {
+        setState(() {
+          tr = Icon(
+            Icons.check,
+            size: 64,
+          );
+        });
+      } else {
+        setState(() {
+          tr = Icon(
+            Icons.add,
+            size: 64,
+          );
+        });
+      }
+      if (widget.storage["\"3\""] != null && widget.storage["\"3\""] != "") {
+        setState(() {
+          c = Icon(
+            Icons.check,
+            size: 64,
+          );
+        });
+      } else {
+        setState(() {
+          c = Icon(
+            Icons.add,
+            size: 64,
+          );
+        });
+      }
+      if (widget.storage["\"4\""] != null && widget.storage["\"4\""] != "") {
+        setState(() {
+          bl = Icon(
+            Icons.check,
+            size: 64,
+          );
+        });
+      } else {
+        setState(() {
+          bl = Icon(
+            Icons.add,
+            size: 64,
+          );
+        });
+      }
+      if (widget.storage["\"5\""] != null && widget.storage["\"5\""] != "") {
+        setState(() {
+          br = Icon(
+            Icons.check,
+            size: 64,
+          );
+        });
+      } else {
+        setState(() {
+          br = Icon(
+            Icons.add,
+            size: 64,
+          );
+        });
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this, value: 0.1);
-    _animation =
-        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
-
-    _controller.forward();
-    _animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller.reverse(from: 1);
-      } else if (status == AnimationStatus.dismissed) {
-        _controller.forward();
-      }
-    });
     if (widget.storage != null) {
       print(widget.storage);
       god = widget.storage;
@@ -51,14 +131,10 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
       for (var v in widget.storage.keys) {
         keyss.add(v);
       }
+      //ticking all the elements that are filled in
+      _tickme();
       print(keyss);
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 
   @override
@@ -97,7 +173,6 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                     width: 150,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         FlatButton(
                           onPressed: () async {
@@ -106,7 +181,9 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                               MaterialPageRoute(
                                   builder: (context) => Question(
                                         qnum: 1,
+                                        prevdata: widget.storage["\"1\""],
                                       )),
+                                      
                             );
                             setState(
                               () {
@@ -118,30 +195,14 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"1\""] = temp;
                                 }
                                 print(widget.storage);
-
-                                // if (lso1.length != 0) {
-                                //   tl = AssetImage('assets/check.png');
-                                // }
+                                tl= Icon(
+            Icons.check,
+            size: 64,
+          );
                               },
                             );
                           },
-                          child: Center(
-                            child: ScaleTransition(
-                              scale: _animation,
-                              alignment: Alignment.center,
-                              child: Image(
-                                image: tl,
-                                height: 150,
-                                width: 150,
-                              ),
-
-                              // child: Image.network(
-                              //   '$tl',
-                              //   height: 150,
-                              //   width: 150,
-                              // ),
-                            ),
-                          ),
+                          child: Center(child: tl),
                         ),
                       ],
                     ),
@@ -157,6 +218,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                     height: 150,
                     width: 150,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FlatButton(
                           onPressed: () async {
@@ -165,6 +227,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                               MaterialPageRoute(
                                   builder: (context) => Question(
                                         qnum: 2,
+                                        prevdata: widget.storage["\"2\""],
                                       )),
                             );
                             setState(
@@ -177,24 +240,15 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"2\""] = temp;
                                 }
                                 print(widget.storage);
-
-                                // if (lso2.length != 0) {
-                                //   tl = AssetImage('assets/check.png');
-                                // }
+                                 tr= Icon(
+            Icons.check,
+            size: 64,
+          );
                               },
+                             
                             );
                           },
-                          child: Center(
-                            child: ScaleTransition(
-                              scale: _animation,
-                              alignment: Alignment.center,
-                              child: Image(
-                                image: tr,
-                                height: 150,
-                                width: 150,
-                              ),
-                            ),
-                          ),
+                          child: Center(child: tr),
                         ),
                       ],
                     ),
@@ -212,6 +266,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                 height: 150,
                 width: 150,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FlatButton(
                       onPressed: () async {
@@ -220,6 +275,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                           MaterialPageRoute(
                               builder: (context) => Question(
                                     qnum: 3,
+                                    prevdata: widget.storage["\"3\""],
                                   )),
                         );
                         setState(
@@ -232,24 +288,14 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                               widget.storage["\"3\""] = temp;
                             }
                             print(widget.storage);
-
-                            // if (lso3.length != 0) {
-                            //   tl = AssetImage('assets/check.png');
-                            // }
+                            c= Icon(
+            Icons.check,
+            size: 64,
+          );
                           },
                         );
                       },
-                      child: Center(
-                        child: ScaleTransition(
-                          scale: _animation,
-                          alignment: Alignment.center,
-                          child: Image(
-                            image: c,
-                            height: 150,
-                            width: 150,
-                          ),
-                        ),
-                      ),
+                      child: Center(child: c),
                     ),
                   ],
                 ),
@@ -267,15 +313,18 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                     height: 150,
                     width: 150,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FlatButton(
                           onPressed: () async {
                             lso4 = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Question(
-                                        qnum: 4,
-                                      )),
+                                builder: (context) => Question(
+                                  qnum: 4,
+                                  prevdata: widget.storage["\"4\""],
+                                ),
+                              ),
                             );
                             setState(
                               () {
@@ -287,24 +336,14 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"4\""] = temp;
                                 }
                                 print(widget.storage);
-
-                                // if (lso4.length != 0) {
-                                //   tl = AssetImage('assets/check.png');
-                                // }
+                                bl= tr= Icon(
+            Icons.check,
+            size: 64,
+          );
                               },
                             );
                           },
-                          child: Center(
-                            child: ScaleTransition(
-                              scale: _animation,
-                              alignment: Alignment.center,
-                              child: Image(
-                                image: bl,
-                                height: 150,
-                                width: 150,
-                              ),
-                            ),
-                          ),
+                          child: Center(child: bl),
                         ),
                       ],
                     ),
@@ -330,6 +369,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                               MaterialPageRoute(
                                 builder: (context) => Question(
                                   qnum: 5,
+                                  prevdata: widget.storage["\"5\""],
                                 ),
                               ),
                             );
@@ -343,24 +383,14 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"5\""] = temp;
                                 }
                                 print(widget.storage);
-
-                                // if (lso5.length != 0) {
-                                //   tl = AssetImage('assets/check.png');
-                                // }
+                                br= tr= Icon(
+            Icons.check,
+            size: 64,
+          );
                               },
                             );
                           },
-                          child: Center(
-                            child: ScaleTransition(
-                              scale: _animation,
-                              alignment: Alignment.center,
-                              child: Image(
-                                image: br,
-                                height: 150,
-                                width: 150,
-                              ),
-                            ),
-                          ),
+                          child: Center(child: br),
                         ),
                       ],
                     ),
@@ -371,59 +401,22 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                 height: 30,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFFEB1555),
-                    ),
-                    height: 80,
-                    width: 150,
-                    child: FlatButton(
-                      onPressed: () {
-                        setState(() {
-                          tl = AssetImage('assets/add.png');
-                          tr = AssetImage('assets/add.png');
-                          c = AssetImage('assets/add.png');
-                          bl = AssetImage('assets/add.png');
-                          br = AssetImage('assets/add.png');
-                        });
-                      },
-                      child: Center(
-                        child: Text(
-                          'Clear',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.teal.shade200,
                     ),
-                    height: 80,
-                    width: 150,
+                    height: 90,
+                    width: 190,
                     child: FlatButton(
                       onPressed: () {
-                        if (lsss.isEmpty) {
-                          lsss.addAll(lso1);
-                          lsss.addAll(lso2);
-                          lsss.addAll(lso3);
-                          lsss.addAll(lso4);
-                          lsss.addAll(lso5);
-                          print(lsss);
-                        } else {
-                          print(lsss);
-                        }
                         Navigator.pop(context, widget.storage);
                       },
                       child: Center(
                         child: Text(
-                          'Submit',
+                          'Save ',
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -433,21 +426,6 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                   ),
                 ],
               ),
-              // Center(
-              //   child: ScaleTransition(
-              //     scale: _animation,
-              //     child: Image.network(
-              //         'https://img.icons8.com/cotton/2x/checkmark.png'),
-              //   ),
-              // ),
-              // Center(
-              //   child: ScaleTransition(
-              //     scale: _animation,
-              //     alignment: Alignment.center,
-              //     child: Image.network(
-              //         'https://icons-for-free.com/iconfiles/png/512/add+board+new+plus+icon-1320186882821780394.png'),
-              //   ),
-              // ),
             ],
           ),
         ),
