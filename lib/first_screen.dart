@@ -237,7 +237,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             output = json.decode(previousinput);
                           }
 
-                          print("previous input : ");
+                          print("previous inputt : ");
                           print(output.runtimeType);
 
                           if (output != null) {
