@@ -10,10 +10,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Login',
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Color(0xFF111328),
-        scaffoldBackgroundColor: Color(0xFF111328),
-      ),
       home: LoginPage(),
     );
   }

@@ -14,14 +14,15 @@ class Question extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65),
           child: AppBar(
+            elevation: 0,
             automaticallyImplyLeading: false,
-            backgroundColor: Color(0xFF1D1E33),
+            backgroundColor: Colors.white,
             title: Center(
               child: Text(
-                'Question $qnum',
+                'QUESTION $qnum',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
+                  color: Color.fromRGBO(255, 145, 77, 1),
+                  fontSize: 35,
                 ),
               ),
             ),
@@ -68,10 +69,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
       padding: EdgeInsets.all(15),
       child: ListView(
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF1D1E33),
+              color: Color.fromRGBO(255, 145, 77, 0.85),
             ),
             height: 320,
             width: 150,
@@ -81,10 +85,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
               children: [
                 Text(
                   'ENTER QUESTION',
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Form(
                   key: _formKey,
@@ -95,6 +102,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(35, 0, 35, 20),
                         child: TextFormField(
+                          style: TextStyle(fontSize: 16),
                           initialValue:
                               prevquestion != null ? prevquestion : "",
                           validator: (value) {
@@ -109,14 +117,14 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       Container(
                         height: 80,
                         width: 170,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Color(0xFFEB1555),
+                          color: Colors.white,
                         ),
                         child: FlatButton(
                           onPressed: () {
@@ -137,7 +145,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           },
                           child: Text(
                             'Submit',
-                            style: TextStyle(fontSize: 23),
+                            style: TextStyle(
+                              fontSize: 23,
+                              color: Color.fromRGBO(255, 145, 77, 1),
+                            ),
                           ),
                         ),
                       ),

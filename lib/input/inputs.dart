@@ -12,25 +12,36 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> with SingleTickerProviderStateMixin {
+  Widget addicon = Icon(
+    Icons.add,
+    size: 64,
+    color: Color.fromRGBO(255, 145, 77, 1),
+  );
+
   var tl = Icon(
     Icons.add,
     size: 64,
+    color: Colors.white,
   );
   var tr = Icon(
     Icons.add,
     size: 64,
+    color: Colors.white,
   );
   var c = Icon(
     Icons.add,
     size: 64,
+    color: Colors.white,
   );
   var bl = Icon(
     Icons.add,
     size: 64,
+    color: Colors.white,
   );
   var br = Icon(
     Icons.add,
     size: 64,
+    color: Colors.white,
   );
   var lso1 = {};
   var lso2 = {};
@@ -48,6 +59,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           tl = Icon(
             Icons.check,
             size: 64,
+            color: Colors.white,
           );
         });
       } else {
@@ -55,6 +67,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           tl = Icon(
             Icons.add,
             size: 64,
+            color: Colors.white,
           );
         });
       }
@@ -63,6 +76,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           tr = Icon(
             Icons.check,
             size: 64,
+            color: Colors.white,
           );
         });
       } else {
@@ -70,6 +84,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           tr = Icon(
             Icons.add,
             size: 64,
+            color: Colors.white,
           );
         });
       }
@@ -78,6 +93,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           c = Icon(
             Icons.check,
             size: 64,
+            color: Colors.white,
           );
         });
       } else {
@@ -85,6 +101,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           c = Icon(
             Icons.add,
             size: 64,
+            color: Colors.white,
           );
         });
       }
@@ -93,6 +110,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           bl = Icon(
             Icons.check,
             size: 64,
+            color: Colors.white,
           );
         });
       } else {
@@ -100,6 +118,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           bl = Icon(
             Icons.add,
             size: 64,
+            color: Colors.white,
           );
         });
       }
@@ -108,6 +127,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           br = Icon(
             Icons.check,
             size: 64,
+            color: Colors.white,
           );
         });
       } else {
@@ -115,6 +135,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           br = Icon(
             Icons.add,
             size: 64,
+            color: Colors.white,
           );
         });
       }
@@ -142,32 +163,26 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Color(0xFF1D1E33),
-            title: Center(
-              child: Text(
-                'User Input',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                ),
-              ),
-            ),
-          ),
-        ),
         body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/bg2.png"), fit: BoxFit.cover),
+          ),
           padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
           child: ListView(
             children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
               Row(
                 children: [
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
-                      color: Color(0xFF1D1E33),
+                      border: Border.all(
+                        width: 8,
+                        color: Color.fromRGBO(255, 145, 77, 1),
+                      ),
                     ),
                     height: 150,
                     width: 150,
@@ -183,7 +198,6 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                         qnum: 1,
                                         prevdata: widget.storage["\"1\""],
                                       )),
-                                      
                             );
                             setState(
                               () {
@@ -195,10 +209,11 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"1\""] = temp;
                                 }
                                 print(widget.storage);
-                                tl= Icon(
-            Icons.check,
-            size: 64,
-          );
+                                tl = Icon(
+                                  Icons.check,
+                                  size: 64,
+                                  color: Colors.white,
+                                );
                               },
                             );
                           },
@@ -208,12 +223,15 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
-                      color: Color(0xFF1D1E33),
+                      border: Border.all(
+                        width: 8,
+                        color: Color.fromRGBO(255, 145, 77, 1),
+                      ),
                     ),
                     height: 150,
                     width: 150,
@@ -240,12 +258,12 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"2\""] = temp;
                                 }
                                 print(widget.storage);
-                                 tr= Icon(
-            Icons.check,
-            size: 64,
-          );
+                                tr = Icon(
+                                  Icons.check,
+                                  size: 64,
+                                  color: Colors.white,
+                                );
                               },
-                             
                             );
                           },
                           child: Center(child: tr),
@@ -256,12 +274,15 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: MediaQuery.of(context).size.width * 0.05,
               ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(60),
-                  color: Color(0xFF1D1E33),
+                  border: Border.all(
+                    width: 8,
+                    color: Color.fromRGBO(255, 145, 77, 1),
+                  ),
                 ),
                 height: 150,
                 width: 150,
@@ -288,10 +309,11 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                               widget.storage["\"3\""] = temp;
                             }
                             print(widget.storage);
-                            c= Icon(
-            Icons.check,
-            size: 64,
-          );
+                            c = Icon(
+                              Icons.check,
+                              size: 64,
+                              color: Colors.white,
+                            );
                           },
                         );
                       },
@@ -301,14 +323,17 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: MediaQuery.of(context).size.width * 0.05,
               ),
               Row(
                 children: [
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
-                      color: Color(0xFF1D1E33),
+                      border: Border.all(
+                        width: 8,
+                        color: Color.fromRGBO(255, 145, 77, 1),
+                      ),
                     ),
                     height: 150,
                     width: 150,
@@ -336,10 +361,11 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"4\""] = temp;
                                 }
                                 print(widget.storage);
-                                bl= tr= Icon(
-            Icons.check,
-            size: 64,
-          );
+                                bl = tr = Icon(
+                                  Icons.check,
+                                  size: 64,
+                                  color: Colors.white,
+                                );
                               },
                             );
                           },
@@ -349,12 +375,15 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
-                      color: Color(0xFF1D1E33),
+                      border: Border.all(
+                        width: 8,
+                        color: Color.fromRGBO(255, 145, 77, 1),
+                      ),
                     ),
                     height: 150,
                     width: 150,
@@ -383,10 +412,11 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                   widget.storage["\"5\""] = temp;
                                 }
                                 print(widget.storage);
-                                br= tr= Icon(
-            Icons.check,
-            size: 64,
-          );
+                                br = tr = Icon(
+                                  Icons.check,
+                                  size: 64,
+                                  color: Colors.white,
+                                );
                               },
                             );
                           },
@@ -398,7 +428,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                 ],
               ),
               SizedBox(
-                height: 30,
+                height: MediaQuery.of(context).size.width * 0.1,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -406,19 +436,20 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.teal.shade200,
+                      color: Color.fromRGBO(255, 145, 77, 1),
                     ),
-                    height: 90,
-                    width: 190,
+                    height: 72,
+                    width: 200,
                     child: FlatButton(
                       onPressed: () {
                         Navigator.pop(context, widget.storage);
                       },
                       child: Center(
                         child: Text(
-                          'Save ',
+                          'Save Progress',
                           style: TextStyle(
-                            fontSize: 20,
+                            color: Colors.white,
+                            fontSize: 25,
                           ),
                         ),
                       ),

@@ -7,6 +7,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'dart:async';
+import 'package:intl/intl.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -24,11 +26,10 @@ class _FirstScreenState extends State<FirstScreen> {
   void initState() {
     super.initState();
     print("start");
-    var userr = FirebaseAuth.instance.currentUser;
     // openFile('${userr.uid}');
     print("created");
     _openfile();
-    _openfile1();
+
     lsss = {
       "\"1\"": null,
       "\"2\"": null,
@@ -37,24 +38,18 @@ class _FirstScreenState extends State<FirstScreen> {
       "\"5\"": null,
     };
 
-    lsss1 = {
-      "\"isIgnore\"": null,
-    };
     _setisIgnore();
+    print(isIgnore);
   }
 
   _setisIgnore() async {
-    var ls = [];
+    await _openfile1();
     var value = await _read1();
     if (value != null) {
-      ls.add(value);
-    } else {
       setState(() {
-        isIgnore = false;
+        isIgnore = true;
       });
     }
-    print("object");
-    print(ls);
   }
 
   _openfile() async {
@@ -65,12 +60,10 @@ class _FirstScreenState extends State<FirstScreen> {
       setState(() {
         file = File('${directory.path}/my_file.txt');
       });
-      print("File exists");
     } else {
       setState(() {
         file = new File('${directory.path}/my_file.txt');
       });
-      print("File don't exists");
     }
   }
 
@@ -93,25 +86,33 @@ class _FirstScreenState extends State<FirstScreen> {
 
   Future _clearfile1() async {
     final Directory directory = await getApplicationDocumentsDirectory();
+
     file1 = File('${directory.path}/my.txt');
     file1.delete();
-    print("delete fil 1");
+    print("delete file 1");
     file1 = new File('${directory.path}/my.txt');
   }
 
+  Future _clearfile() async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    file = File('${directory.path}/my_file.txt');
+    file.delete();
+    file = new File('${directory.path}/my_file.txt');
+  }
+
   _write1(String text) async {
+    _clearfile1();
     var value = await _read1();
-    if (value != null) {
-      text = value + " " + text;
-    }
+
     print(text);
-    await file1.writeAsString(text);
+    await file1.writeAsStringSync(text);
   }
 
   Future<String> _read1() async {
     String text;
     try {
       text = await file1.readAsString();
+      text = text.toString();
       print("text is ");
       print(text);
       text = text.toString();
@@ -120,13 +121,6 @@ class _FirstScreenState extends State<FirstScreen> {
       print("Couldn't read file");
     }
     return text;
-  }
-
-  Future _clearfile() async {
-    final Directory directory = await getApplicationDocumentsDirectory();
-    file = File('${directory.path}/my_file.txt');
-    file.delete();
-    file = new File('${directory.path}/my_file.txt');
   }
 
   _write(String text) async {
@@ -190,13 +184,16 @@ class _FirstScreenState extends State<FirstScreen> {
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
           automaticallyImplyLeading: false,
-          title: Text('Home'),
           actions: [
             DropdownButton(
+              elevation: 0,
               icon: Icon(
                 Icons.more_vert,
-                color: Theme.of(context).primaryIconTheme.color,
+                color: Colors.orangeAccent,
+                size: 40,
               ),
               items: [
                 DropdownMenuItem(
@@ -205,7 +202,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       children: [
                         Icon(Icons.exit_to_app),
                         SizedBox(
-                          width: 8,
+                          width: 10,
                         ),
                         Text('Log Out'),
                       ],
@@ -224,166 +221,262 @@ class _FirstScreenState extends State<FirstScreen> {
           ],
         ),
         body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/bg1.png"), fit: BoxFit.cover),
+          ),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                isIgnore != true
-                    ? RaisedButton(
-                        onPressed: () async {
-                          var output;
-                          String previousinput = await _read();
-                          if (previousinput != null) {
-                            output = json.decode(previousinput);
-                          }
-
-                          print("previous inputt : ");
-                          print(output.runtimeType);
-
-                          if (output != null) {
-                            int counter = 1;
-                            for (var k in output.values) {
-                              if (k != null) {
-                                k = _conversion(k);
-                                String tempcounter =
-                                    _conversion(counter.toString());
-                                setState(() {
-                                  print(tempcounter);
-                                  lsss[tempcounter] = k;
-                                });
-                              }
-                              counter++;
-                            }
-                          }
-
-                          var temp = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Input(
-                                storage: lsss,
-                              ),
-                            ),
-                          );
-
-                          setState(() {
-                            lsss = temp;
-                          });
-
-                          if (lsss != null && lsss != {}) {
-                            var a = await _clearfile();
-                            await _write(lsss.toString());
-                            _clearlsss();
-                            var value = await _read();
-                            if (value != null) {
-                              print("tis the value : " + value);
-                            }
-                            // _updatelsss();
-                          }
-                        },
-                        child: Text('Enter Rooster'),
-                      )
-                    : Text(''),
                 SizedBox(
-                  height: 30,
+                  height: MediaQuery.of(context).size.height * 0.05,
                 ),
-                RaisedButton(
-                  onPressed: () async {
-                    var ls = [];
-                    var value = await _read();
-                    if (value != null) {
-                      ls.add(value);
-                    }
-                    print("object");
-                    print(ls);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Display(
-                          questions: ls,
+                isIgnore != true
+                    ? Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromRGBO(255, 145, 77, 1), width: 4),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: Text('Read Data'),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    _clearfile();
-                  },
-                  child: Text('Clear Data'),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                isIgnore != true
-                    ? RaisedButton(
-                        onPressed: () async {
-                          int counter = 0;
-                          print("final data :");
-                          var ls = [];
-                          var value = await _read();
-                          if (value != null) {
-                            ls.add(value);
-                          }
-                          var output = json.decode(value);
-                          if (output != null) {
-                            for (var k in output.values) {
-                              if (k != null) {
+                        child: FlatButton(
+                          onPressed: () async {
+                            var output;
+                            String previousinput = await _read();
+                            if (previousinput != null) {
+                              output = json.decode(previousinput);
+                            }
+
+                            print("previous input : ");
+                            print(output.runtimeType);
+
+                            if (output != null) {
+                              int counter = 1;
+                              for (var k in output.values) {
+                                if (k != null) {
+                                  k = _conversion(k);
+                                  String tempcounter =
+                                      _conversion(counter.toString());
+                                  setState(() {
+                                    print(tempcounter);
+                                    lsss[tempcounter] = k;
+                                  });
+                                }
                                 counter++;
                               }
                             }
-                          }
 
-                          Alert(
-                            context: context,
-                            type: AlertType.warning,
-                            title: "WARNING!",
-                            desc:
-                                "You have only entered $counter questions. Do you wish to continue?",
-                            buttons: [
-                              DialogButton(
-                                child: Text(
-                                  "Yes",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                            var temp = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Input(
+                                  storage: lsss,
                                 ),
-                                onPressed: () async {
-                                  setState(() {
-                                    isIgnore = true;
-                                    lsss1[_conversion("isIgnore")] =
-                                        _conversion("1");
-                                  });
-                                  print(lsss1);
-                                  await _clearfile1();
-                                  await _write1(lsss1.toString());
-                                  Navigator.pop(context);
-                                },
-                                color: Color.fromRGBO(0, 179, 134, 1.0),
                               ),
-                              DialogButton(
-                                child: Text(
-                                  "No",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                gradient: LinearGradient(colors: [
-                                  Color.fromRGBO(116, 116, 191, 1.0),
-                                  Color.fromRGBO(52, 138, 199, 1.0)
-                                ]),
-                              )
-                            ],
-                          ).show();
+                            );
 
-                          print(ls);
-                          print(counter);
-                        },
-                        child: Text('Final Submit'),
+                            setState(() {
+                              lsss = temp;
+                            });
+
+                            if (lsss != null && lsss != {}) {
+                              await _clearfile();
+                              await _write(lsss.toString());
+                              _clearlsss();
+                              var value = await _read();
+                              if (value != null) {
+                                print("tis the value : " + value);
+                              }
+                              // _updatelsss();
+                            }
+                          },
+                          child: Text(
+                            'Enter Rooster',
+                            style: TextStyle(fontSize: 20, color: Colors.blue),
+                          ),
+                        ),
+                      )
+                    : Text(''),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color.fromRGBO(255, 145, 77, 1), width: 4),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  child: FlatButton(
+                    onPressed: () async {
+                      var ls = [];
+                      var value = await _read();
+                      if (value != null) {
+                        ls.add(value);
+                      }
+                      print("object");
+                      print(ls);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Display(
+                            questions: ls,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text('Read Data',
+                        style: TextStyle(fontSize: 20, color: Colors.blue)),
+                  ),
+                ),
+                isIgnore != true
+                    ? Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromRGBO(255, 145, 77, 1), width: 4),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        child: FlatButton(
+                          onPressed: () {
+                            _clearfile();
+                          },
+                          child: Text('Clear Data',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.blue)),
+                        ),
                       )
                     : Text(""),
+                isIgnore != true
+                    ? Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 145, 77, 0.8),
+                          border: Border.all(color: Colors.blue, width: 4),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        child: FlatButton(
+                          onPressed: () async {
+                            await _read1();
+                            int counter = 0;
+                            print("final data :");
+                            var ls = {};
+                            var value = await _read();
+                            if (value != null) {
+                              ls['questions'] = value;
+                            }
+
+                            if (value != null) {
+                              var output = json.decode(value);
+                              for (var k in output.values) {
+                                if (k != null) {
+                                  counter++;
+                                }
+                              }
+                            }
+
+                            Alert(
+                              context: context,
+                              type: AlertType.warning,
+                              title: "ARE YOU SURE ?",
+                              desc:
+                                  "You have only entered $counter questions. Do you wish to continue? You cannot revert once you press yes!",
+                              buttons: [
+                                DialogButton(
+                                  radius: BorderRadius.all(Radius.circular(20)),
+                                  border: Border.all(
+                                      color: Colors.orange, width: 6),
+                                  height: 60,
+                                  child: Text(
+                                    "YES",
+                                    style: TextStyle(
+                                        color: Colors.blue, fontSize: 24),
+                                  ),
+                                  onPressed: () async {
+                                    setState(() {
+                                      isIgnore = true;
+                                    });
+                                    await _write1("true");
+                                    await _read1();
+                                    var user =
+                                        FirebaseAuth.instance.currentUser.email;
+                                    print("dekhle :");
+                                    print(ls);
+
+                                    ls['useremail'] = user;
+                                    print(ls);
+
+                                    //final list [useremailid,{"1": "ui", "2": "123", "3": null, "4": null, "5": null}]
+
+                                    Navigator.pop(context);
+                                  },
+                                  color: Colors.white,
+                                ),
+                                DialogButton(
+                                  radius: BorderRadius.all(Radius.circular(20)),
+                                  border: Border.all(
+                                      color: Colors.orange, width: 6),
+                                  height: 60,
+                                  child: Text(
+                                    "NO",
+                                    style: TextStyle(
+                                        color: Colors.blue, fontSize: 24),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  color: Colors.white,
+                                )
+                              ],
+                            ).show();
+
+                            dynamic currentTime = DateFormat.yMEd()
+                                .add_jms()
+                                .format(DateTime.now());
+                            print("tis the dates");
+                            print(currentTime);
+
+                            print(ls);
+                            print(counter);
+                          },
+                          child: Text(
+                            'Final Submit',
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          ),
+                        ),
+                      )
+                    : Text(""),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color.fromRGBO(255, 145, 77, 1), width: 4),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  child: FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        isIgnore = false;
+                      });
+                    },
+                    child: Text("Revert",
+                        style: TextStyle(fontSize: 20, color: Colors.blue)),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
               ],
             ),
           ),
