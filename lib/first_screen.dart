@@ -4,6 +4,7 @@ import 'package:studentship/input/inputs.dart';
 import 'package:studentship/screens/display.dart';
 import 'sign_in.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 import 'dart:convert';
@@ -412,7 +413,45 @@ class _FirstScreenState extends State<FirstScreen> {
                                         FirebaseAuth.instance.currentUser.email;
                                     print("dekhle :");
                                     print(ls);
+                                    """
+                                      Meine yaha se changes kiya hai #############################################################################
+                                    """
 
+                                    // yaha pe apne app ke details bhar dena not adding coz of privacy
+                                    // final FirebaseApp app = await Firebase.initializeApp(
+                                    //                                                       name: 'db2',
+                                    //                                                       options: Platform.isIOS || Platform.isMacOS
+                                    //                                                           ? const FirebaseOptions(
+                                    //                                                               appId: '1:297855924061:ios:c6de2b69b03a5be8',
+                                    //                                                               apiKey: 'AIzaSyD_shO5mfO9lhy2TVWhfo1VUmARKlG4suk',
+                                    //                                                               projectId: 'flutter-firebase-plugins',
+                                    //                                                               messagingSenderId: '297855924061',
+                                    //                                                               databaseURL: 'https://flutterfire-cd2f7.firebaseio.com',
+                                    //                                                             )
+                                    //                                                           : const FirebaseOptions(
+                                    //                                                               appId: '1:297855924061:android:669871c998cc21bd',
+                                    //                                                               apiKey: 'AIzaSyD_shO5mfO9lhy2TVWhfo1VUmARKlG4suk',
+                                    //                                                               messagingSenderId: '297855924061',
+                                    //                                                               projectId: 'flutter-firebase-plugins',
+                                    //                                                               databaseURL: 'https://flutterfire-cd2f7.firebaseio.com',
+                                    //                                                             ),
+                                    //                                                       );
+                                    // final FirebaseDatabase database = FirebaseDatabase(app:app); 
+                                      final dbRef = FirebaseDatabase.instance.reference().child("questions");
+                                    dbRef.push().set({
+                                                          "username": ls['useremail'],
+                                                          "questions":ls['questions']
+                                                        }).then((_) {
+                                                          Scaffold.of(context).showSnackBar(
+                                                              SnackBar(content: Text('Successfully Added')));
+                                                              _clearlsss();
+                                                        }).catchError((onError) {
+                                                          print(onError);
+                                                      });
+
+                                    """
+                                      yaha tak changes hai ##########################################################################################
+                                    """
                                     ls['useremail'] = user;
                                     print(ls);
 
