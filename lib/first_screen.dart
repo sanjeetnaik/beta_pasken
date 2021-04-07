@@ -372,10 +372,17 @@ class _FirstScreenState extends State<FirstScreen> {
                             int counter = 0;
                             print("final data :");
                             var ls = {};
+                            var ls1 = [];
                             var value = await _read();
                             if (value != null) {
                               ls['questions'] = value;
                             }
+                            var ls2 = json.decode(ls["questions"]);
+                            ls1.add(ls2["1"]);
+                            ls1.add(ls2["2"]);
+                            ls1.add(ls2["3"]);
+                            ls1.add(ls2["4"]);
+                            ls1.add(ls2["5"]);
 
                             if (value != null) {
                               var output = json.decode(value);
@@ -413,9 +420,10 @@ class _FirstScreenState extends State<FirstScreen> {
                                         FirebaseAuth.instance.currentUser.email;
                                     print("dekhle :");
                                     print(ls);
-                                    """
-                                      Meine yaha se changes kiya hai #############################################################################
-                                    """
+                                    print(ls1);
+                                    // """
+                                    //   Meine yaha se changes kiya hai #############################################################################
+                                    // """
 
                                     // yaha pe apne app ke details bhar dena not adding coz of privacy
                                     // final FirebaseApp app = await Firebase.initializeApp(
@@ -436,23 +444,28 @@ class _FirstScreenState extends State<FirstScreen> {
                                     //                                                               databaseURL: 'https://flutterfire-cd2f7.firebaseio.com',
                                     //                                                             ),
                                     //                                                       );
-                                    // final FirebaseDatabase database = FirebaseDatabase(app:app); 
-                                      final dbRef = FirebaseDatabase.instance.reference().child("questions");
-                                    dbRef.push().set({
-                                                          "username": ls['useremail'],
-                                                          "questions":ls['questions']
-                                                        }).then((_) {
-                                                          Scaffold.of(context).showSnackBar(
-                                                              SnackBar(content: Text('Successfully Added')));
-                                                              _clearlsss();
-                                                        }).catchError((onError) {
-                                                          print(onError);
-                                                      });
-
-                                    """
-                                      yaha tak changes hai ##########################################################################################
-                                    """
+                                    // final FirebaseDatabase database = FirebaseDatabase(app:app);
                                     ls['useremail'] = user;
+                                    final dbRef = FirebaseDatabase.instance
+                                        .reference()
+                                        .child("questions");
+                                    dbRef.push().set({
+                                      "username": ls['useremail'],
+                                      "questions": ls1
+                                    }).then((_) {
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content:
+                                                  Text('Successfully Added')));
+                                      _clearlsss();
+                                    }).catchError((onError) {
+                                      print(onError);
+                                    });
+
+                                    // """
+                                    //   yaha tak changes hai ##########################################################################################
+                                    // """
+
                                     print(ls);
 
                                     //final list [useremailid,{"1": "ui", "2": "123", "3": null, "4": null, "5": null}]
