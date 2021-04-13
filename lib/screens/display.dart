@@ -184,8 +184,10 @@ class _DisplayState extends State<Display> {
                   ),
                 ),
                 child: FlatButton(
-                  child: Text('Question 5',
-                      style: TextStyle(fontSize: 25, color: Colors.white)),
+                  child: Text(
+                    'Question 5',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
                   onPressed: () {
                     if (dict["5"] != null && dict["5"] != "") {
                       Navigator.push(

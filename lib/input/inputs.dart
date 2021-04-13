@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studentship/screens/question_screen.dart';
-import 'package:studentship/screens/screen0.dart';
+import 'package:studentship/screens/leaderboard.dart';
 
 class Input extends StatefulWidget {
   var storage;
