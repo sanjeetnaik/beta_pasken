@@ -8,30 +8,27 @@ class Question extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65),
-          child: AppBar(
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            title: Center(
-              child: Text(
-                'QUESTION $qnum',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 145, 77, 1),
-                  fontSize: 35,
-                ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Center(
+            child: Text(
+              'QUESTION $qnum',
+              style: TextStyle(
+                color: Color.fromRGBO(255, 145, 77, 1),
+                fontSize: 35,
               ),
             ),
           ),
         ),
-        body: QuestionScreen(
-          qnum: qnum,
-          prevdata: prevdata,
-        ),
+      ),
+      body: QuestionScreen(
+        qnum: qnum,
+        prevdata: prevdata,
       ),
     );
   }

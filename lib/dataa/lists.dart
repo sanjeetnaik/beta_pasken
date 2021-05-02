@@ -16,14 +16,18 @@ class listme {
   dynamic myrequest() async {
     makelist();
     var responseData;
+    var response;
     try {
-      var response = await http
+      response = await http
           .get('https://serene-refuge-98596.herokuapp.com/leaderboard');
       responseData = json.decode(response.body);
     } catch (e) {
       print(e);
     }
     print(responseData);
+    if (responseData == null) {
+      return (null);
+    }
     dict = responseData;
     return (dict);
   }

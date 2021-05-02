@@ -14,11 +14,6 @@ class _Screen0State extends State<Screen0> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("yeh lo");
-    int i = 0;
-    print(widget.obj.dict[i.toString()]);
-    print("\"0\"");
-    print("0");
   }
 
   @override
@@ -27,6 +22,10 @@ class _Screen0State extends State<Screen0> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            onPressed: () => Navigator.pop(context, false),
+          ),
           backgroundColor: Colors.blue,
           title: Center(
             child: Text(
@@ -58,14 +57,30 @@ class _Screen0State extends State<Screen0> {
                               child: Text(
                                 '${index + 1}.',
                                 style: TextStyle(
-                                    fontSize:
-                                        (index == 0 || index == 1 || index == 2)
-                                            ? 25
-                                            : 20,
-                                    color:
-                                        (index == 0 || index == 1 || index == 2)
-                                            ? Color.fromRGBO(201, 160, 77, 1)
-                                            : Colors.black),
+                                    fontSize: (index == 0 ||
+                                            index == 1 ||
+                                            index == 2 ||
+                                            index == 3 ||
+                                            index == 4 ||
+                                            index == 5 ||
+                                            index == 6 ||
+                                            index == 7 ||
+                                            index == 8 ||
+                                            index == 9)
+                                        ? 25
+                                        : 20,
+                                    color: (index == 0 ||
+                                            index == 1 ||
+                                            index == 2 ||
+                                            index == 3 ||
+                                            index == 4 ||
+                                            index == 5 ||
+                                            index == 6 ||
+                                            index == 7 ||
+                                            index == 8 ||
+                                            index == 9)
+                                        ? Color.fromRGBO(201, 160, 77, 1)
+                                        : Colors.black),
                               ),
                             ),
                           ),
@@ -81,12 +96,26 @@ class _Screen0State extends State<Screen0> {
                                   style: TextStyle(
                                       fontSize: (index == 0 ||
                                               index == 1 ||
-                                              index == 2)
+                                              index == 2 ||
+                                              index == 3 ||
+                                              index == 4 ||
+                                              index == 5 ||
+                                              index == 6 ||
+                                              index == 7 ||
+                                              index == 8 ||
+                                              index == 9)
                                           ? 25
                                           : 20,
                                       color: (index == 0 ||
                                               index == 1 ||
-                                              index == 2)
+                                              index == 2 ||
+                                              index == 3 ||
+                                              index == 4 ||
+                                              index == 5 ||
+                                              index == 6 ||
+                                              index == 7 ||
+                                              index == 8 ||
+                                              index == 9)
                                           ? Color.fromRGBO(201, 160, 77, 1)
                                           : Colors.black),
                                 ),
@@ -101,14 +130,30 @@ class _Screen0State extends State<Screen0> {
                               child: Text(
                                 '${widget.obj.dict[index.toString()]['score']}',
                                 style: TextStyle(
-                                    fontSize:
-                                        (index == 0 || index == 1 || index == 2)
-                                            ? 25
-                                            : 20,
-                                    color:
-                                        (index == 0 || index == 1 || index == 2)
-                                            ? Color.fromRGBO(201, 160, 77, 1)
-                                            : Colors.black),
+                                    fontSize: (index == 0 ||
+                                            index == 1 ||
+                                            index == 2 ||
+                                            index == 3 ||
+                                            index == 4 ||
+                                            index == 5 ||
+                                            index == 6 ||
+                                            index == 7 ||
+                                            index == 8 ||
+                                            index == 9)
+                                        ? 25
+                                        : 20,
+                                    color: (index == 0 ||
+                                            index == 1 ||
+                                            index == 2 ||
+                                            index == 3 ||
+                                            index == 4 ||
+                                            index == 5 ||
+                                            index == 6 ||
+                                            index == 7 ||
+                                            index == 8 ||
+                                            index == 9)
+                                        ? Color.fromRGBO(201, 160, 77, 1)
+                                        : Colors.black),
                               ),
                             ),
                           ),
@@ -139,7 +184,8 @@ class _Screen0State extends State<Screen0> {
                     },
                   )
                 : Center(
-                    child: Text("No Data Yet :("),
+                    child: Text("No Data :(",
+                        style: TextStyle(fontSize: 25, color: Colors.blue)),
                   ),
           ),
         ],

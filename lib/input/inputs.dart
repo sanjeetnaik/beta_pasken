@@ -33,21 +33,10 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
     size: 64,
     color: Colors.white,
   );
-  var bl = Icon(
-    Icons.add,
-    size: 64,
-    color: Colors.white,
-  );
-  var br = Icon(
-    Icons.add,
-    size: 64,
-    color: Colors.white,
-  );
   var lso1 = {};
   var lso2 = {};
   var lso3 = {};
-  var lso4 = {};
-  var lso5 = {};
+
   var lsss = {};
   var god = {};
   var keyss = [];
@@ -105,40 +94,6 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           );
         });
       }
-      if (widget.storage["\"4\""] != null && widget.storage["\"4\""] != "") {
-        setState(() {
-          bl = Icon(
-            Icons.check,
-            size: 64,
-            color: Colors.white,
-          );
-        });
-      } else {
-        setState(() {
-          bl = Icon(
-            Icons.add,
-            size: 64,
-            color: Colors.white,
-          );
-        });
-      }
-      if (widget.storage["\"5\""] != null && widget.storage["\"5\""] != "") {
-        setState(() {
-          br = Icon(
-            Icons.check,
-            size: 64,
-            color: Colors.white,
-          );
-        });
-      } else {
-        setState(() {
-          br = Icon(
-            Icons.add,
-            size: 64,
-            color: Colors.white,
-          );
-        });
-      }
     }
   }
 
@@ -172,113 +127,109 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
           child: ListView(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.05,
+                height: MediaQuery.of(context).size.height * 0.02,
               ),
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(
-                        width: 8,
-                        color: Color.fromRGBO(255, 145, 77, 1),
-                      ),
-                    ),
-                    height: 150,
-                    width: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FlatButton(
-                          onPressed: () async {
-                            lso1 = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Question(
-                                        qnum: 1,
-                                        prevdata: widget.storage["\"1\""],
-                                      )),
-                            );
-                            setState(
-                              () {
-                                if (lso1 != null) {
-                                  var temp;
-                                  for (var v in lso1.values) {
-                                    temp = v;
-                                  }
-                                  widget.storage["\"1\""] = temp;
-                                }
-                                print(widget.storage);
-                                tl = Icon(
-                                  Icons.check,
-                                  size: 64,
-                                  color: Colors.white,
-                                );
-                              },
-                            );
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(
+                    width: 8,
+                    color: Color.fromRGBO(255, 145, 77, 1),
+                  ),
+                ),
+                height: 150,
+                width: 150,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FlatButton(
+                      onPressed: () async {
+                        lso1 = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Question(
+                                    qnum: 1,
+                                    prevdata: widget.storage["\"1\""],
+                                  )),
+                        );
+                        setState(
+                          () {
+                            if (lso1 != null) {
+                              var temp;
+                              for (var v in lso1.values) {
+                                temp = v;
+                              }
+                              widget.storage["\"1\""] = temp;
+                              tl = Icon(
+                                Icons.check,
+                                size: 64,
+                                color: Colors.white,
+                              );
+                            }
                           },
-                          child: Center(child: tl),
-                        ),
-                      ],
+                        );
+                      },
+                      child: Center(child: tl),
                     ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(60),
+                  border: Border.all(
+                    width: 8,
+                    color: Color.fromRGBO(255, 145, 77, 1),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(
-                        width: 8,
-                        color: Color.fromRGBO(255, 145, 77, 1),
-                      ),
-                    ),
-                    height: 150,
-                    width: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FlatButton(
-                          onPressed: () async {
-                            lso2 = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Question(
-                                        qnum: 2,
-                                        prevdata: widget.storage["\"2\""],
-                                      )),
-                            );
-                            setState(
-                              () {
-                                if (lso2 != null) {
-                                  var temp;
-                                  for (var v in lso2.values) {
-                                    temp = v;
-                                  }
-                                  widget.storage["\"2\""] = temp;
-                                }
-                                print(widget.storage);
-                                tr = Icon(
-                                  Icons.check,
-                                  size: 64,
-                                  color: Colors.white,
-                                );
-                              },
-                            );
+                ),
+                height: 150,
+                width: 150,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FlatButton(
+                      onPressed: () async {
+                        lso2 = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Question(
+                                    qnum: 2,
+                                    prevdata: widget.storage["\"2\""],
+                                  )),
+                        );
+                        setState(
+                          () {
+                            if (lso2 != null) {
+                              var temp;
+                              for (var v in lso2.values) {
+                                temp = v;
+                              }
+                              widget.storage["\"2\""] = temp;
+                              print(temp);
+                              tr = Icon(
+                                Icons.check,
+                                size: 64,
+                                color: Colors.white,
+                              );
+                            }
+                            print(widget.storage);
                           },
-                          child: Center(child: tr),
-                        ),
-                      ],
+                        );
+                      },
+                      child: Center(child: tr),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.05,
               ),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(60),
+                  borderRadius: BorderRadius.circular(40),
                   border: Border.all(
                     width: 8,
                     color: Color.fromRGBO(255, 145, 77, 1),
@@ -307,13 +258,13 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                                 temp = v;
                               }
                               widget.storage["\"3\""] = temp;
+                              c = Icon(
+                                Icons.check,
+                                size: 64,
+                                color: Colors.white,
+                              );
                             }
                             print(widget.storage);
-                            c = Icon(
-                              Icons.check,
-                              size: 64,
-                              color: Colors.white,
-                            );
                           },
                         );
                       },
@@ -323,112 +274,7 @@ class _InputState extends State<Input> with SingleTickerProviderStateMixin {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.05,
-              ),
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(
-                        width: 8,
-                        color: Color.fromRGBO(255, 145, 77, 1),
-                      ),
-                    ),
-                    height: 150,
-                    width: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FlatButton(
-                          onPressed: () async {
-                            lso4 = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Question(
-                                  qnum: 4,
-                                  prevdata: widget.storage["\"4\""],
-                                ),
-                              ),
-                            );
-                            setState(
-                              () {
-                                if (lso4 != null) {
-                                  var temp;
-                                  for (var v in lso4.values) {
-                                    temp = v;
-                                  }
-                                  widget.storage["\"4\""] = temp;
-                                }
-                                print(widget.storage);
-                                bl = tr = Icon(
-                                  Icons.check,
-                                  size: 64,
-                                  color: Colors.white,
-                                );
-                              },
-                            );
-                          },
-                          child: Center(child: bl),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(
-                        width: 8,
-                        color: Color.fromRGBO(255, 145, 77, 1),
-                      ),
-                    ),
-                    height: 150,
-                    width: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        FlatButton(
-                          onPressed: () async {
-                            lso5 = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Question(
-                                  qnum: 5,
-                                  prevdata: widget.storage["\"5\""],
-                                ),
-                              ),
-                            );
-                            setState(
-                              () {
-                                if (lso5 != null) {
-                                  var temp;
-                                  for (var v in lso5.values) {
-                                    temp = v;
-                                  }
-                                  widget.storage["\"5\""] = temp;
-                                }
-                                print(widget.storage);
-                                br = tr = Icon(
-                                  Icons.check,
-                                  size: 64,
-                                  color: Colors.white,
-                                );
-                              },
-                            );
-                          },
-                          child: Center(child: br),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.1,
+                height: MediaQuery.of(context).size.height * 0.06,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
